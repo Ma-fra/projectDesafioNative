@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
 
-export function SignIn() {
+export function Register() {
   const navigation = useNavigation();
 
   const [input, setInput] = useState("");
@@ -32,19 +32,17 @@ export function SignIn() {
           delay={500}
           style={styles.containerHeader}
         >
-          <Text style={[styles.message, themeTextStyle]}>Bem-vindo(a)</Text>
+          <Text style={[styles.message, themeTextStyle]}>Crie sua conta</Text>
         </Animatable.View>
 
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-          <Text style={styles.title}>Email</Text>
           <View style={styles.inputArea}>
-            <TextInput placeholder="Digite um email..." style={styles.input} />
+            <TextInput placeholder="Email" style={styles.input} />
           </View>
 
-          <Text style={styles.title}>Senha</Text>
           <View style={styles.inputArea}>
             <TextInput
-              placeholder="Digite sua senha."
+              placeholder="Senha"
               style={styles.input}
               value={input}
               onChangeText={(texto) => setInput(texto)}
@@ -62,17 +60,31 @@ export function SignIn() {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={[styles.button, themeContainerStyle]}>
-            <Text style={[styles.buttonText, themeTextStyle]}>Acessar</Text>
-          </TouchableOpacity>
+          <View style={styles.inputArea}>
+            <TextInput
+              placeholder="Confirmar senha"
+              style={styles.input}
+              value={input}
+              onChangeText={(texto) => setInput(texto)}
+              secureTextEntry={hidePass}
+            />
+            <TouchableOpacity
+              style={styles.icon}
+              onPress={() => setHidePass(!hidePass)}
+            >
+              {hidePass ? (
+                <Ionicons name="eye" color="#15151e" size={25} />
+              ) : (
+                <Ionicons name="eye-off" color="#15151e" size={25} />
+              )}
+            </TouchableOpacity>
+          </View>
 
           <TouchableOpacity
-            style={styles.buttonRegister}
-            onPress={() => navigation.navigate("Register")}
+            style={[styles.button, themeContainerStyle]}
+            onPress={() => navigation.navigate("SignIn")}
           >
-            <Text style={styles.registerText}>
-              Não possui uma conta? Cadastre-se
-            </Text>
+            <Text style={[styles.buttonText, themeTextStyle]}>Criar</Text>
           </TouchableOpacity>
         </Animatable.View>
       </View>

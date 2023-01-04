@@ -27,13 +27,28 @@ export const styles = StyleSheet.create({
     color: "#f1f1ef"
   },
   input:{
-    marginTop: 10,
+    fontSize: 16,
+    borderRadius: 6,
+    color: "#15151e",
+    padding: 8,
+    width: '85%',
+  },
+  inputArea: {
+    flexDirection: "row",
+    width: '100%',
+    borderRadius: 6,
+    alignItems: "center",
+    backgroundColor:  "#f1f1ef",
+    marginTop: 20,
     borderBottomWidth: 1,
     height: 40,
     marginBottom: 12,
-    fontSize: 16,
-    backgroundColor:  "#f1f1ef",
-    borderRadius: 6,
+  },
+  icon: {
+    width: '15%',
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
   },
   button:{
     width: '100%',
