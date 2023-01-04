@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TouchableOpacity,
   View,
@@ -12,8 +12,18 @@ import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
 
-export function Register() {
-  const navigation = useNavigation();
+import Alerta from "../../components/Alert";
+import {
+  postUser,
+  RegistroUser,
+} from "../../services/Api/Request/registroService";
+
+export function Register({ navigation }) {
+  // const navigation = useNavigation();
+
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [validPass, setValidPass] = useState(null);
 
   const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);
@@ -23,6 +33,33 @@ export function Register() {
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+
+  function salvar() {
+    let data: RegistroUser = {
+      // id: nome,
+      login: email,
+      password: password,
+    };
+    console.log(data);
+
+    if (password == validPass) {
+      postUser(data)
+        .then((res) => {
+          console.log(res.data);
+          Alerta("Parabéns!", "você foi cadastrado com sucesso!");
+          navigation.navigate("Login");
+        })
+        .catch((err) => {
+          Alerta(
+            "Oops!",
+            " Este e-mail já está em uso, verique-o ou recupere sua senha"
+          );
+          console.log(err);
+        });
+    } else {
+      Alerta("Oops!", "As senhas não coincidem");
+    }
+  }
 
   return (
     <>
@@ -37,16 +74,26 @@ export function Register() {
 
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
           <View style={styles.inputArea}>
-            <TextInput placeholder="Email" style={styles.input} />
+            <TextInput
+              placeholder="Email"
+              style={styles.input}
+              onChangeText={(value) => {
+                setEmail(value);
+              }}
+              accessibilityHint="Insira seu e-mail favorito."
+            />
           </View>
 
           <View style={styles.inputArea}>
             <TextInput
               placeholder="Senha"
               style={styles.input}
-              value={input}
-              onChangeText={(texto) => setInput(texto)}
+              // value={input}
+              onChangeText={(value) => {
+                setPassword(value);
+              }}
               secureTextEntry={hidePass}
+              accessibilityHint="Insira uma senha."
             />
             <TouchableOpacity
               style={styles.icon}
@@ -65,12 +112,20 @@ export function Register() {
               placeholder="Confirmar senha"
               style={styles.input}
               value={input}
-              onChangeText={(texto) => setInput(texto)}
-              secureTextEntry={hidePass}
+              onChangeText={(value) => {
+                setValidPass(value);
+              }}
+              secureTextEntry={true}
+              accessibilityHint="Insira sua senha novamente para valida-la."
             />
             <TouchableOpacity
               style={styles.icon}
-              onPress={() => setHidePass(!hidePass)}
+              // onPress={() => setHidePass(!hidePass)}
+              onPress={() => {
+                salvar();
+              }}
+              accessibilityLabel="Botão criar."
+              accessibilityHint="Clique aqui para finalizar a criação da sua conta."
             >
               {hidePass ? (
                 <Ionicons name="eye" color="#15151e" size={25} />

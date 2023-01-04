@@ -8,6 +8,8 @@ import { SignIn } from "../../pages/SignIn";
 import { Home } from "../../pages/Home/Index";
 import { Register } from "../../pages/Register";
 
+import { AuthProvider } from "../../context/auth";
+
 function HomeTabStack() {
   const Stack = createNativeStackNavigator();
   return (
@@ -41,9 +43,11 @@ function HomeTabStack() {
 export function Routes() {
   return (
     <>
-      <NavigationContainer>
-        <HomeTabStack />
-      </NavigationContainer>
+      <AuthProvider>
+        <NavigationContainer>
+          <HomeTabStack />
+        </NavigationContainer>
+      </AuthProvider>
     </>
   );
 }
