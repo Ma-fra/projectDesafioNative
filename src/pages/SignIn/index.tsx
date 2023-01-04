@@ -12,6 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
 
+import { Api } from "../../services/Api/api";
+
 export function SignIn() {
   const navigation = useNavigation();
 
