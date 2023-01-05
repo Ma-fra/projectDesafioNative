@@ -22,8 +22,8 @@ export const styles = StyleSheet.create({
     paddingEnd: '5%'
   },
   title: {
-    fontSize: 20,
-    marginTop: 28,
+    fontSize: 18,
+    marginTop: 20,
     color: "#f1f1ef"
   },
   input:{

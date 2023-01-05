@@ -21,7 +21,7 @@ export function Welcome() {
         <View style={[styles.containerLogo, themeContainerStyle]}>
           <Animatable.Image
             animation="flipInY"
-            source={require("../../assets/f1.png")}
+            source={require("../../assets/butterfly.png")}
             style={{ width: "80%" }}
             resizeMode="contain"
           />
@@ -31,7 +31,7 @@ export function Welcome() {
           animation="fadeInUp"
           style={styles.containerForm}
         >
-          <Text style={styles.title}>Texto que fala do que serve o app</Text>
+          <Text style={styles.title}>Bem vindo(a)</Text>
           <Text style={styles.text}>Faça login para começar</Text>
 
           <TouchableOpacity

@@ -36,13 +36,16 @@ export function Register() {
         </Animatable.View>
 
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
+
+        <Text style={styles.title}>Email</Text>
           <View style={styles.inputArea}>
-            <TextInput placeholder="Email" style={styles.input} />
+            <TextInput placeholder="Insira um Email" style={styles.input} />
           </View>
 
+          <Text style={styles.title}>Senha</Text>
           <View style={styles.inputArea}>
             <TextInput
-              placeholder="Senha"
+              placeholder="Insira uma Senha"
               style={styles.input}
               value={input}
               onChangeText={(texto) => setInput(texto)}
@@ -60,9 +63,10 @@ export function Register() {
             </TouchableOpacity>
           </View>
 
+          <Text style={styles.title}>Confirme sua senha</Text>
           <View style={styles.inputArea}>
             <TextInput
-              placeholder="Confirmar senha"
+              placeholder="Senha"
               style={styles.input}
               value={input}
               onChangeText={(texto) => setInput(texto)}
