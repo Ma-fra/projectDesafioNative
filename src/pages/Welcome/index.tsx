@@ -37,6 +37,8 @@ export function Welcome() {
           <TouchableOpacity
             style={[styles.button, themeContainerStyle]}
             onPress={() => navigation.navigate("SignIn")}
+            accessibilityLabel="Botão acessar."
+            accessibilityHint="Quer fazer login? Clique aqui para ir para a página."
           >
             <Text style={[styles.buttonText, themeTextStyle]}>Acessar</Text>
           </TouchableOpacity>

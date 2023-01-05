@@ -8,15 +8,19 @@ import {
 } from "react-native";
 
 import { styles } from "./styles";
-import { useNavigation } from "@react-navigation/native";
+
 import * as Animatable from "react-native-animatable";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import Checkbox from "expo-checkbox";
 
 export function SignIn() {
   const navigation = useNavigation();
 
   const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);
+
+  const [isChecked, setChecked] = useState(false);
 
   const colorScheme = useColorScheme();
   const themeTextStyle =
@@ -36,9 +40,14 @@ export function SignIn() {
         </Animatable.View>
 
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-          <Text style={styles.title}>Email</Text>
+          <Text style={styles.title}>Usuário</Text>
           <View style={styles.inputArea}>
-            <TextInput placeholder="Digite um email..." style={styles.input} />
+            <TextInput
+              placeholder="Digite o seu nome de usuário"
+              style={styles.input}
+              accessibilityLabel="Input de usuário."
+              accessibilityHint="Insira o seu nome de usuário cadastrado."
+            />
           </View>
 
           <Text style={styles.title}>Senha</Text>
@@ -49,6 +58,8 @@ export function SignIn() {
               value={input}
               onChangeText={(texto) => setInput(texto)}
               secureTextEntry={hidePass}
+              accessibilityLabel="Input de senha."
+              accessibilityHint="Insira a sua senha cadastrada."
             />
             <TouchableOpacity
               style={styles.icon}
@@ -62,13 +73,37 @@ export function SignIn() {
             </TouchableOpacity>
           </View>
 
+          <View style={styles.checkboxContainer}>
+            <View style={styles.section}>
+              <Checkbox
+                style={styles.checkbox}
+                value={isChecked}
+                onValueChange={setChecked}
+                color={isChecked ? "#B0C7DD" : undefined}
+                accessibilityLabel="Caixinha de seleção."
+                accessibilityHint="Quer que a gente lembre a sua senha para o futuro? Clique aqui."
+              />
+              <Text style={[styles.paragraph, themeTextStyle]}>
+                Salvar senha
+              </Text>
+            </View>
+          </View>
+
           <TouchableOpacity style={[styles.button, themeContainerStyle]}>
-            <Text style={[styles.buttonText, themeTextStyle]}>Acessar</Text>
+            <Text
+              style={[styles.buttonText, themeTextStyle]}
+              accessibilityLabel="Botão para acessar."
+              accessibilityHint="Já preencheu tudo? Clique aqui para entrar."
+            >
+              Acessar
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.buttonRegister}
             onPress={() => navigation.navigate("Register")}
+            accessibilityLabel="Botão não tem conta."
+            accessibilityHint="Ainda não tem uma conta com a gente? Clique aqui para criar uma."
           >
             <Text style={styles.registerText}>
               Não possui uma conta? Cadastre-se

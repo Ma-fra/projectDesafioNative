@@ -36,10 +36,14 @@ export function Register() {
         </Animatable.View>
 
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-
-        <Text style={styles.title}>Email</Text>
+          <Text style={styles.title}>Email</Text>
           <View style={styles.inputArea}>
-            <TextInput placeholder="Insira um Email" style={styles.input} />
+            <TextInput
+              placeholder="Insira um Email"
+              style={styles.input}
+              accessibilityLabel="Input email."
+              accessibilityHint="Insira o seu melhor email aqui."
+            />
           </View>
 
           <Text style={styles.title}>Senha</Text>
@@ -50,6 +54,8 @@ export function Register() {
               value={input}
               onChangeText={(texto) => setInput(texto)}
               secureTextEntry={hidePass}
+              accessibilityLabel="Input senha."
+              accessibilityHint="Insira sua melhor senha aqui."
             />
             <TouchableOpacity
               style={styles.icon}
@@ -64,29 +70,35 @@ export function Register() {
           </View>
 
           <Text style={styles.title}>Confirme sua senha</Text>
-          <View style={styles.inputArea}>
-            <TextInput
-              placeholder="Senha"
-              style={styles.input}
-              value={input}
-              onChangeText={(texto) => setInput(texto)}
-              secureTextEntry={hidePass}
-            />
-            <TouchableOpacity
-              style={styles.icon}
-              onPress={() => setHidePass(!hidePass)}
-            >
-              {hidePass ? (
-                <Ionicons name="eye" color="#15151e" size={25} />
-              ) : (
-                <Ionicons name="eye-off" color="#15151e" size={25} />
-              )}
-            </TouchableOpacity>
+          <View>
+            <View style={styles.inputArea}>
+              <TextInput
+                placeholder="Senha"
+                style={styles.input}
+                // value={input}
+                // onChangeText={(texto) => setInput(texto)}
+                secureTextEntry={hidePass}
+                accessibilityLabel="Input senha."
+                accessibilityHint="Repita a sua senha aqui para confirmar."
+              />
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={() => setHidePass(!hidePass)}
+              >
+                {hidePass ? (
+                  <Ionicons name="eye" color="#15151e" size={25} />
+                ) : (
+                  <Ionicons name="eye-off" color="#15151e" size={25} />
+                )}
+              </TouchableOpacity>
+            </View>
           </View>
 
           <TouchableOpacity
             style={[styles.button, themeContainerStyle]}
             onPress={() => navigation.navigate("SignIn")}
+            accessibilityLabel="Botão criar."
+            accessibilityHint="Terminou de preencher todos os campos? Clique aqui para fazer login."
           >
             <Text style={[styles.buttonText, themeTextStyle]}>Criar</Text>
           </TouchableOpacity>

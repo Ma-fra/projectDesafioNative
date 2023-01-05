@@ -82,4 +82,19 @@ export const styles = StyleSheet.create({
   darkThemeText: {
     color: "#f1f1ef",
   },
+
+  checkboxContainer: {
+    marginHorizontal: 5,
+    marginVertical: 10,
+  },
+  section: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  paragraph: {
+    fontSize: 15,
+  },
+  checkbox: {
+    margin: 4,
+  },
 });
