@@ -19,7 +19,7 @@ import { Api } from "../../services/Api/api";
 export function SignIn() {
   const navigation = useNavigation();
 
-  const [contas, setContas] = useState("");
+  const [contas, setContas] = useState([]);
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
 
@@ -35,7 +35,7 @@ export function SignIn() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const contasResponse = await Api.get(`users`);
+        const contasResponse = await Api.get(`/api/users`);
         const contasApi = contasResponse.data;
         setContas(contasApi);
       } catch (error) {
@@ -48,7 +48,7 @@ export function SignIn() {
   const logar = () => {
     var loginExiste = false;
     for (var i = 0; i < contas.length; i++) {
-      if (contas[i].password === password && contas[i].login === usuario) {
+      if (contas[i].password == password && contas[i].login == usuario) {
         loginExiste = true;
         break;
       } else {
