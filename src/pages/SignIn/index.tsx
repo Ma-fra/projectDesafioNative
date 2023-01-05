@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   TouchableOpacity,
   View,
@@ -11,19 +11,9 @@ import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
-import Alerta from "../../components/Alert";
-import { AuthContext } from "../../context/auth";
-import { storeLocalData } from "../../services/Async";
 
-import { Api } from "../../services/Api/api";
-
-export function SignIn({ navigation }) {
-  // const navigation = useNavigation();
-
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [carregando, setCarregando] = useState<boolean>(true);
-  const { armazenaDadosUsuarioLogin } = useContext(AuthContext);
+export function SignIn() {
+  const navigation = useNavigation();
 
   const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);
@@ -33,29 +23,6 @@ export function SignIn({ navigation }) {
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
-
-  const handleLogin = async () => {
-    var tokenJwt: any = null;
-
-    try {
-      const retorno = await Api.post("/api/auth/login", {
-        email: email,
-        password: senha,
-      });
-
-      if (retorno.status === 200) {
-        tokenJwt = retorno.data;
-
-        armazenaDadosUsuarioLogin(tokenJwt["jwt-token"]);
-
-        storeLocalData("user", tokenJwt);
-
-        navigation.navigate("Home");
-      }
-    } catch (error) {
-      Alerta("Oops!", "Login ou senha errados");
-    }
-  };
 
   return (
     <>
@@ -71,12 +38,7 @@ export function SignIn({ navigation }) {
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
           <Text style={styles.title}>Email</Text>
           <View style={styles.inputArea}>
-            <TextInput
-              placeholder="Digite seu email..."
-              style={styles.input}
-              onChangeText={setEmail}
-              value={email}
-            />
+            <TextInput placeholder="Digite um email..." style={styles.input} />
           </View>
 
           <Text style={styles.title}>Senha</Text>
@@ -84,12 +46,9 @@ export function SignIn({ navigation }) {
             <TextInput
               placeholder="Digite sua senha."
               style={styles.input}
-              // value={input}
-              // onChangeText={(texto) => setInput(texto)}
-              // secureTextEntry={hidePass}
-              secureTextEntry={true}
-              onChangeText={setSenha}
-              value={senha}
+              value={input}
+              onChangeText={(texto) => setInput(texto)}
+              secureTextEntry={hidePass}
             />
             <TouchableOpacity
               style={styles.icon}
@@ -103,10 +62,7 @@ export function SignIn({ navigation }) {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity
-            style={[styles.button, themeContainerStyle]}
-            onPress={() => handleLogin()}
-          >
+          <TouchableOpacity style={[styles.button, themeContainerStyle]}>
             <Text style={[styles.buttonText, themeTextStyle]}>Acessar</Text>
           </TouchableOpacity>
 
