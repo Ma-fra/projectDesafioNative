@@ -36,20 +36,20 @@ export function Register() {
         </Animatable.View>
 
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-          <Text style={styles.title}>Email</Text>
+          <Text style={styles.title}>Usuário</Text>
           <View style={styles.inputArea}>
             <TextInput
-              placeholder="Insira um Email"
+              placeholder="Insira um nome"
               style={styles.input}
-              accessibilityLabel="Input email."
-              accessibilityHint="Insira o seu melhor email aqui."
+              accessibilityLabel="Input usuário."
+              accessibilityHint="Insira um nome para login aqui."
             />
           </View>
 
           <Text style={styles.title}>Senha</Text>
           <View style={styles.inputArea}>
             <TextInput
-              placeholder="Insira uma Senha"
+              placeholder="Insira uma senha"
               style={styles.input}
               value={input}
               onChangeText={(texto) => setInput(texto)}
