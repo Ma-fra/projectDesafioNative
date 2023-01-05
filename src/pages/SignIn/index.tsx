@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TouchableOpacity,
   View,
   Text,
   TextInput,
   useColorScheme,
+  Alert,
 } from "react-native";
 
 import { styles } from "./styles";
@@ -13,13 +14,16 @@ import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
+import { Api } from "../../services/Api/api";
 
 export function SignIn() {
   const navigation = useNavigation();
 
-  const [input, setInput] = useState("");
-  const [hidePass, setHidePass] = useState(true);
+  const [contas, setContas] = useState("");
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
 
+  const [hidePass, setHidePass] = useState(true);
   const [isChecked, setChecked] = useState(false);
 
   const colorScheme = useColorScheme();
@@ -27,6 +31,36 @@ export function SignIn() {
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const contasResponse = await Api.get(`users`);
+        const contasApi = contasResponse.data;
+        setContas(contasApi);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const logar = () => {
+    var loginExiste = false;
+    for (var i = 0; i < contas.length; i++) {
+      if (contas[i].password === password && contas[i].login === usuario) {
+        loginExiste = true;
+        break;
+      } else {
+        continue;
+      }
+    }
+    if (loginExiste === false) {
+      Alert.alert("Esta conta não existe! Por favor cadastre-se.");
+    } else {
+      navigation.navigate("Home");
+    }
+  };
 
   return (
     <>
@@ -47,19 +81,21 @@ export function SignIn() {
               style={styles.input}
               accessibilityLabel="Input de usuário."
               accessibilityHint="Insira o seu nome de usuário cadastrado."
+              onChangeText={(value) => {
+                setUsuario(value);
+              }}
             />
           </View>
 
           <Text style={styles.title}>Senha</Text>
           <View style={styles.inputArea}>
             <TextInput
-              placeholder="Digite sua senha."
-              style={styles.input}
-              value={input}
-              onChangeText={(texto) => setInput(texto)}
+              placeholder="Digite sua senha"
               secureTextEntry={hidePass}
-              accessibilityLabel="Input de senha."
+              style={styles.input}
+              accessibilityLabel="Input senha."
               accessibilityHint="Insira a sua senha cadastrada."
+              onChangeText={(value) => setPassword(value)}
             />
             <TouchableOpacity
               style={styles.icon}
@@ -89,7 +125,10 @@ export function SignIn() {
             </View>
           </View>
 
-          <TouchableOpacity style={[styles.button, themeContainerStyle]}>
+          <TouchableOpacity
+            style={[styles.button, themeContainerStyle]}
+            onPress={logar}
+          >
             <Text
               style={[styles.buttonText, themeTextStyle]}
               accessibilityLabel="Botão para acessar."

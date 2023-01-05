@@ -18,7 +18,6 @@ import { Ionicons } from "@expo/vector-icons";
 export function Register() {
   const navigation = useNavigation();
 
-  const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);
 
   const [login, setLogin] = useState("");
