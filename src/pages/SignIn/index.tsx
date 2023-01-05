@@ -16,10 +16,15 @@ import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import { Api } from "../../services/Api/api";
 
+interface IData {
+  password: string,
+  login: string,
+};
+
 export function SignIn() {
   const navigation = useNavigation();
 
-  const [contas, setContas] = useState([]);
+  const [contas, setContas] = useState<IData[]>([]);
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
 
@@ -45,7 +50,7 @@ export function SignIn() {
     fetchData();
   }, []);
 
-  const logar = () => {
+  const handleLogin = () => {
     var loginExiste = false;
     for (var i = 0; i < contas.length; i++) {
       if (contas[i].password == password && contas[i].login == usuario) {
@@ -127,7 +132,7 @@ export function SignIn() {
 
           <TouchableOpacity
             style={[styles.button, themeContainerStyle]}
-            onPress={logar}
+            onPress={handleLogin}
           >
             <Text
               style={[styles.buttonText, themeTextStyle]}
