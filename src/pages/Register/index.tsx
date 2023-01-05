@@ -7,6 +7,9 @@ import {
   useColorScheme,
 } from "react-native";
 
+import { postUser, RegistroUser } from "../../services/Api/Request/registroUser";
+import Alerta from "../../components/alerta";
+
 import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
@@ -18,11 +21,38 @@ export function Register() {
   const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);
 
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [validPass, setValidPass] = useState("");
+
   const colorScheme = useColorScheme();
   const themeTextStyle =
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+
+  function salvar() {
+    let data: RegistroUser = {
+      login: login,
+      password: password,
+    };
+    console.log(data);
+
+    if (password == validPass) {
+      postUser(data)
+        .then((res) => {
+          console.log(res.data);
+          Alerta("Parabéns!", "você foi cadastrado com sucesso!");
+          navigation.navigate("SignIn");
+        })
+        .catch((err) => {
+          Alerta("Oops!", "Este nome já está em uso!");
+          console.log(err);
+        });
+    } else {
+      Alerta("Oops!", "As senhas não coincidem");
+    }
+  }
 
   return (
     <>
@@ -43,43 +73,26 @@ export function Register() {
               style={styles.input}
               accessibilityLabel="Input usuário."
               accessibilityHint="Insira um nome para login aqui."
+              onChangeText={(value) => {
+                setLogin(value);
+              }}
             />
           </View>
 
           <Text style={styles.title}>Senha</Text>
-          <View style={styles.inputArea}>
-            <TextInput
-              placeholder="Insira uma senha"
-              style={styles.input}
-              value={input}
-              onChangeText={(texto) => setInput(texto)}
-              secureTextEntry={hidePass}
-              accessibilityLabel="Input senha."
-              accessibilityHint="Insira sua melhor senha aqui."
-            />
-            <TouchableOpacity
-              style={styles.icon}
-              onPress={() => setHidePass(!hidePass)}
-            >
-              {hidePass ? (
-                <Ionicons name="eye" color="#15151e" size={25} />
-              ) : (
-                <Ionicons name="eye-off" color="#15151e" size={25} />
-              )}
-            </TouchableOpacity>
-          </View>
-
-          <Text style={styles.title}>Confirme sua senha</Text>
           <View>
             <View style={styles.inputArea}>
               <TextInput
-                placeholder="Senha"
+                placeholder="Insira uma senha"
                 style={styles.input}
                 // value={input}
                 // onChangeText={(texto) => setInput(texto)}
                 secureTextEntry={hidePass}
                 accessibilityLabel="Input senha."
-                accessibilityHint="Repita a sua senha aqui para confirmar."
+                accessibilityHint="Insira sua melhor senha aqui."
+                onChangeText={(value) => {
+                  setPassword(value);
+                }}
               />
               <TouchableOpacity
                 style={styles.icon}
@@ -93,12 +106,40 @@ export function Register() {
               </TouchableOpacity>
             </View>
           </View>
+          <Text style={styles.title}>Confirme sua senha</Text>
+          <View>
+            <View style={styles.inputArea}>
+              <TextInput
+                placeholder="Validar senha"
+                secureTextEntry={true}
+                style={styles.input}
+                accessibilityLabel="Input senha."
+                accessibilityHint="Repita a sua senha aqui para confirmar."
+                onChangeText={(value) => {
+                  setValidPass(value);
+                }}
+              />
+              {/* <TouchableOpacity
+                style={styles.icon}
+                onPress={() => setHidePass(!hidePass)}
+              >
+                {hidePass ? (
+                  <Ionicons name="eye" color="#15151e" size={25} />
+                ) : (
+                  <Ionicons name="eye-off" color="#15151e" size={25} />
+                )}
+              </TouchableOpacity> */}
+            </View>
+          </View>
 
           <TouchableOpacity
             style={[styles.button, themeContainerStyle]}
-            onPress={() => navigation.navigate("SignIn")}
+            // onPress={() => navigation.navigate("SignIn")}
             accessibilityLabel="Botão criar."
             accessibilityHint="Terminou de preencher todos os campos? Clique aqui para fazer login."
+            onPress={() => {
+              salvar();
+            }}
           >
             <Text style={[styles.buttonText, themeTextStyle]}>Criar</Text>
           </TouchableOpacity>
