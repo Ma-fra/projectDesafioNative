@@ -124,7 +124,7 @@ export function SignIn() {
                 accessibilityLabel="Caixinha de seleção."
                 accessibilityHint="Quer que a gente lembre a sua senha para o futuro? Clique aqui."
               />
-              <Text style={[styles.paragraph, themeTextStyle]}>
+              <Text style={styles.paragraph}>
                 Salvar senha
               </Text>
             </View>

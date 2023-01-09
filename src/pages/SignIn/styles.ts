@@ -93,6 +93,7 @@ export const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 15,
+    color: "#f1f1ef",
   },
   checkbox: {
     margin: 4,
