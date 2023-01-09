@@ -15,7 +15,7 @@ function HomeTabStack() {
   const Stack = createNativeStackNavigator();
   return (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Welcome"
           component={Welcome}
