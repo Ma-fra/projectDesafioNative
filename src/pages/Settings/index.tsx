@@ -7,15 +7,24 @@ import {
   Image,
   useColorScheme,
 } from "react-native";
-import { styles } from "./styles";
+
 import { Ionicons } from "@expo/vector-icons";
 
-export function Settings() {
+import { styles } from "./styles";
+import { clearStorage } from "../../services/AsyncStorage/LocalStorageService";
+
+export function Settings({ navigation }) {
   const colorScheme = useColorScheme();
   const themeTextStyle =
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+
+  const AppExit = () => {
+    clearStorage();
+
+    navigation.navigate("SignIn");
+  };
 
   return (
     <>
@@ -26,9 +35,7 @@ export function Settings() {
             Tema atual: {colorScheme}
           </Text>
 
-          <TouchableOpacity
-            style={styles.exit}
-          >
+          <TouchableOpacity onPress={() => AppExit()} style={styles.exit}>
             <Ionicons name="exit" size={28} style={themeTextStyle} />
             <Text style={[styles.exitText, themeTextStyle]}>Sair</Text>
           </TouchableOpacity>

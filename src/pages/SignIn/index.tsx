@@ -9,12 +9,13 @@ import {
 } from "react-native";
 
 import { styles } from "./styles";
+import { Api } from "../../services/Api/api";
 
-import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import * as Animatable from "react-native-animatable";
 import Checkbox from "expo-checkbox";
-import { Api } from "../../services/Api/api";
+// import { storeData } from "../../services/AsyncStorage/LocalStorageService";
 
 interface IData {
   password: string,
@@ -66,6 +67,7 @@ export function SignIn() {
       navigation.navigate("Home");
     }
   };
+
 
   return (
     <>
@@ -125,7 +127,7 @@ export function SignIn() {
                 accessibilityHint="Quer que a gente lembre a sua senha para o futuro? Clique aqui."
               />
               <Text style={styles.paragraph}>
-                Salvar senha
+                Lembrar senha
               </Text>
             </View>
           </View>
