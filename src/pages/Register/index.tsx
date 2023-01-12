@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   useColorScheme,
+  Alert,
 } from "react-native";
 
 import { postUser, RegistroUser } from "../../services/Api/Request/registroUser";
@@ -15,7 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
 
-export function Register() {
+const Register = () => {
   const navigation = useNavigation();
 
   const [hidePass, setHidePass] = useState(true);
@@ -52,6 +53,8 @@ export function Register() {
       Alerta("Oops!", "As senhas não coincidem");
     }
   }
+
+
 
   return (
     <>
@@ -147,3 +150,5 @@ export function Register() {
     </>
   );
 }
+
+export default Register;
