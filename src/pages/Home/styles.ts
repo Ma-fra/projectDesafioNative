@@ -24,5 +24,11 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 39,
     fontWeight: "bold",
-  }
+  },
+  item: {
+
+  },
+  image: {
+
+  },
 });

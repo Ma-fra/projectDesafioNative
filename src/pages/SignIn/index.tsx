@@ -15,12 +15,13 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import Checkbox from "expo-checkbox";
-// import { storeData } from "../../services/AsyncStorage/LocalStorageService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IData {
-  password: string,
-  login: string,
-};
+  password: string;
+  login: string;
+}
+
 
 export function SignIn() {
   const navigation = useNavigation();
@@ -38,6 +39,7 @@ export function SignIn() {
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -49,6 +51,7 @@ export function SignIn() {
       }
     }
     fetchData();
+    // readPassword();
   }, []);
 
   const handleLogin = () => {
@@ -67,6 +70,27 @@ export function SignIn() {
       navigation.navigate("Home");
     }
   };
+
+  // const savePassword = async () => {
+  //   try {
+  //     await AsyncStorage.setItem('@storage_Key', password);
+  //     Alert.alert("Senha salva!");
+  //   } catch (e) {
+  //     Alert.alert("Erro ao salvar senha.");
+  //   }
+  // };
+
+  // const readPassword = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('@storage_Key');
+  //     if (value !== null) {
+  //       setPassword(value);
+  //     }
+  //   } catch (e) {
+  //     Alert.alert("Erro ao buscar informação.");
+  //   }
+  // };
+
 
 
   return (
@@ -102,7 +126,9 @@ export function SignIn() {
               style={styles.input}
               accessibilityLabel="Input senha."
               accessibilityHint="Insira a sua senha cadastrada."
-              onChangeText={(value) => setPassword(value)}
+              // onChangeText={(value) => setPassword(value)}
+              // value={textInputValue}
+              onChangeText={(data) => setPassword(data)}
             />
             <TouchableOpacity
               style={styles.icon}
@@ -121,14 +147,13 @@ export function SignIn() {
               <Checkbox
                 style={styles.checkbox}
                 value={isChecked}
-                onValueChange={setChecked}
+                // onValueChange={setChecked}
                 color={isChecked ? "#B0C7DD" : undefined}
                 accessibilityLabel="Caixinha de seleção."
                 accessibilityHint="Quer que a gente lembre a sua senha para o futuro? Clique aqui."
+                // onValueChange={saveValueFunction}
               />
-              <Text style={styles.paragraph}>
-                Lembrar senha
-              </Text>
+              <Text style={styles.paragraph}>Lembrar senha</Text>
             </View>
           </View>
 
