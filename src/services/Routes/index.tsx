@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Welcome } from "../../pages/Welcome";
 import { SignIn } from "../../pages/SignIn";
-import { Home } from "../../pages/Home/Index";
+import Home from "../../pages/Home/Index";
 import { Register } from "../../pages/Register";
 import { Settings } from "../../pages/Settings";
 import { Image, View } from "react-native-animatable";

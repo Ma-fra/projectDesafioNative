@@ -1,26 +1,20 @@
 import { AxiosResponse } from "axios";
 import { Api } from "../api";
-
-export default interface ISUserSkillData {
-  id?: any | null;
-  name: string;
-  description: string;
-  imageUrl: string;
-}
+import ISkillData from "./ISkills";
 
 const getAll = () => {
-  return Api.get<Array<ISUserSkillData>>("/userSkills");
+  return Api.get<Array<ISkillData>>("/userSkills");
 };
 
 const get = (id: any) => {
-  return Api.get<ISUserSkillData>("/userSkills/${id}");
+  return Api.get<ISkillData>("/userSkills/${id}");
 };
 
-const create = (data: ISUserSkillData) => {
-  return Api.post<ISUserSkillData>("/userSkills", data);
+const create = (data: ISkillData) => {
+  return Api.post<ISkillData>("/userSkills", data);
 };
 
-const update = (id: any, data: ISUserSkillData) => {
+const update = (id: any, data: ISkillData) => {
   return Api.put<any>("/userSkills/${id}", data);
 };
 
@@ -32,7 +26,7 @@ const removeAll = () => {
   return Api.delete<any>("/userSkills");
 };
 
-const ISUserSkillData = {
+const UserSkillData = {
   getAll,
   get,
   create,
@@ -40,3 +34,5 @@ const ISUserSkillData = {
   remove,
   removeAll,
 };
+
+export default UserSkillData;

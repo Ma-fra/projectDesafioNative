@@ -1,11 +1,6 @@
 import { AxiosResponse } from "axios";
 import { Api } from "../api";
-export default interface ISkillData {
-  id?: any | null;
-  name: string;
-  description: string;
-  imageUrl: string;
-}
+import ISkillData from "./ISkills";
 
 const getAll = () => {
   return Api.get<Array<ISkillData>>("/skills");
@@ -14,6 +9,13 @@ const getAll = () => {
 const get = (id: any) => {
   return Api.get<ISkillData>("/skills/${id}");
 };
+
+const SkillData = {
+  getAll,
+  get,
+};
+
+export default SkillData;
 
 // import { AxiosResponse } from "axios";
 // import { Api } from "../api";
