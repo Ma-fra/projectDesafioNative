@@ -8,15 +8,16 @@ import {
   useColorScheme,
   FlatList,
   Alert,
-  Modal,
   Pressable,
 } from "react-native";
+
 import { styles } from "./styles";
 // import da interface
 import ISkillData from "../../services/Api/Request/ISkills";
 // import dos métodos
 import UserSkillData from "../../services/Api/Request/userSkillService";
 import SkillData from "../../services/Api/Request/skillsService";
+import { AdicionarSkills } from "../../components/adicionarSkills";
 
 const Home: React.FC = () => {
   const colorScheme = useColorScheme();
@@ -28,7 +29,6 @@ const Home: React.FC = () => {
   const [skills, setSkills] = useState<Array<ISkillData>>([]);
   const [currentSkills, setCurrentSkills] = useState<ISkillData | null>(null);
 
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     retrieveSkills();
@@ -61,35 +61,7 @@ const Home: React.FC = () => {
         {/* <View>
           <Text style={[styles.text, themeTextStyle]}>Tela home</Text>
         </View> */}
-        <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>Skills</Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={[styles.textStyle, themeTextStyle]}>X</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
-          <Pressable
-            style={[styles.button, styles.buttonOpen]}
-            onPress={() => setModalVisible(true)}
-          >
-            <Text style={[styles.textStyle, themeTextStyle]}>Adicionar Skills</Text>
-          </Pressable>
-        </View>
+        <AdicionarSkills />
       </SafeAreaView>
     </>
   );
