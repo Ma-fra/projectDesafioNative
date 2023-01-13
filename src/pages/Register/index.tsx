@@ -8,7 +8,10 @@ import {
   Alert,
 } from "react-native";
 
-import { postUser, RegistroUser } from "../../services/Api/Request/registroUser";
+import {
+  postUser,
+  RegistroUser,
+} from "../../services/Api/Request/registroUser";
 import Alerta from "../../components/alerta";
 
 import { styles } from "./styles";
@@ -32,6 +35,10 @@ const Register = () => {
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
   function salvar() {
+    if (login.length <= 0 || password.length <= 0) {
+      Alert.alert("Por favor preencher todos os campos.");
+      return;
+    }
     let data: RegistroUser = {
       login: login,
       password: password,
@@ -53,8 +60,6 @@ const Register = () => {
       Alerta("Oops!", "As senhas não coincidem");
     }
   }
-
-
 
   return (
     <>
@@ -149,6 +154,6 @@ const Register = () => {
       </View>
     </>
   );
-}
+};
 
 export default Register;

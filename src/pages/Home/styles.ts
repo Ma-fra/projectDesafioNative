@@ -3,7 +3,6 @@ import { Platform, StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1A1C2B",
     padding: Platform.OS === "ios" ? 64 : 30,
     paddingHorizontal: 30,
   },
@@ -24,12 +23,6 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 39,
     fontWeight: "bold",
-  },
-  item: {
-
-  },
-  image: {
-
   },
   centeredView: {
     flex: 1,

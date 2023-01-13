@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 
-// const storeData = async (value) => {
+// const storeLocalData = async (key: string, value: any) => {
 //     try {
 //       await AsyncStorage.setItem('@storage_Key', value)
 //     } catch (e) {
