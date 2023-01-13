@@ -22,7 +22,6 @@ interface IData {
   login: string;
 }
 
-
 export function SignIn() {
   const navigation = useNavigation();
 
@@ -39,7 +38,6 @@ export function SignIn() {
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -55,6 +53,10 @@ export function SignIn() {
   }, []);
 
   const handleLogin = () => {
+    if (usuario.length <= 0 || password.length <= 0) {
+      Alert.alert("Por favor preencher todos os campos.");
+      return;
+    }
     var loginExiste = false;
     for (var i = 0; i < contas.length; i++) {
       if (contas[i].password == password && contas[i].login == usuario) {
@@ -65,7 +67,7 @@ export function SignIn() {
       }
     }
     if (loginExiste === false) {
-      Alert.alert("Esta conta não existe! Por favor cadastre-se.");
+      Alert.alert("Usuário ou/ e senha incorretos.");
     } else {
       navigation.navigate("Home");
     }
@@ -90,8 +92,6 @@ export function SignIn() {
   //     Alert.alert("Erro ao buscar informação.");
   //   }
   // };
-
-
 
   return (
     <>
