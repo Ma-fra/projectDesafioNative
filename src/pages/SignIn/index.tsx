@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import Checkbox from "expo-checkbox";
+import { storeData } from "../../services/AsyncStorage/LocalStorageService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IData {
@@ -70,6 +71,7 @@ export function SignIn() {
       Alert.alert("Usuário ou/ e senha incorretos.");
     } else {
       navigation.navigate("Home");
+      storeData;
     }
   };
 
@@ -147,7 +149,7 @@ export function SignIn() {
               <Checkbox
                 style={styles.checkbox}
                 value={isChecked}
-                // onValueChange={setChecked}
+                onValueChange={setChecked}
                 color={isChecked ? "#B0C7DD" : undefined}
                 accessibilityLabel="Caixinha de seleção."
                 accessibilityHint="Quer que a gente lembre a sua senha para o futuro? Clique aqui."
