@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Api } from "../../services/Api/api";
 import { styles } from "./styles";
+import { AdicionarSkills } from "../../components/adicionarSkills";
 //10156
 interface IData {
   skill: number;
@@ -106,9 +107,11 @@ export function Home() {
   return (
     <>
       <SafeAreaView style={[styles.container, themeContainerStyle]}>
-        <View>
+        {/* <View>
           <Text style={[styles.text, themeTextStyle]}>Tela home</Text>
-        </View>
+        </View> */}
+        <AdicionarSkills />
+        
         <FlatList
           data={infoSkills}
           refreshing={refresh}

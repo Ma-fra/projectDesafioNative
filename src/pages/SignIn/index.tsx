@@ -19,6 +19,7 @@ import { storeData } from "../../services/AsyncStorage/LocalStorageService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IData {
+  id: number;
   password: string;
   login: string;
 }
@@ -62,6 +63,7 @@ export function SignIn() {
     for (var i = 0; i < contas.length; i++) {
       if (contas[i].password == password && contas[i].login == usuario) {
         loginExiste = true;
+        storeData(contas[i].id.toString());storeData(contas[i].id.toString());
         break;
       } else {
         continue;
