@@ -71,6 +71,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#38383f",
     padding: 20,
     borderRadius: 12,
+    marginVertical: 4,
   },
   title: {
     color: "#fff",
@@ -95,6 +96,12 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     marginLeft: 12,
   },
+  containerBotao: {
+    flex: 1,
+  },
+  containerLista: {
+    flex: 8,
+  }
 });
 
 //   "#f1f1ef",

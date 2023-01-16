@@ -175,7 +175,7 @@ export const styles = StyleSheet.create({
     padding: 6,
     borderRadius: 20,
     marginVertical: 4,
-    marginHorizontal: 30,
+    // marginHorizontal: 60,
   },
   textModal: {
     fontSize: 20,

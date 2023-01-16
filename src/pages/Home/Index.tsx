@@ -97,29 +97,32 @@ export function Home() {
   return (
     <>
       <SafeAreaView style={[styles.container, themeContainerStyle]}>
-        <AdicionarSkills />
-
-        <FlatList
-          data={infoSkills}
-          refreshing={refresh}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.skills}>
-              <Image
-                source={{
-                  uri: item.imageUrl,
-                }}
-                style={{ width: 50, height: 50, borderRadius: 20 }}
-              />
-              <View style={styles.informations}>
-                <Text style={styles.title}>{item.name}</Text>
-                <Text style={styles.description}>{item.description}</Text>
-                <Text style={styles.version}>{item.version}</Text>
+        <View style={styles.containerBotao}>
+          <AdicionarSkills />
+        </View>
+        <View style={styles.containerLista}>
+          <FlatList
+            data={infoSkills}
+            refreshing={refresh}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.skills}>
+                <Image
+                  source={{
+                    uri: item.imageUrl,
+                  }}
+                  style={{ width: 50, height: 50, borderRadius: 20 }}
+                />
+                <View style={styles.informations}>
+                  <Text style={styles.title}>{item.name}</Text>
+                  <Text style={styles.description}>{item.description}</Text>
+                  <Text style={styles.version}>{item.version}</Text>
+                </View>
               </View>
-            </View>
-          )}
-          ListEmptyComponent={EmptyListMessage}
-        />
+            )}
+            ListEmptyComponent={EmptyListMessage}
+          />
+        </View>
       </SafeAreaView>
     </>
   );
