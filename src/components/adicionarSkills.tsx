@@ -78,11 +78,11 @@ export function AdicionarSkills() {
                     }}
                     style={{ width: 50, height: 50, borderRadius: 20 }}
                   />
+
                   <View style={styles.information}>
                     <Text style={[styles.textModal, themeTextStyle]}>
                       {item.name}
                     </Text>
-
                     <Pressable
                       style={styles.add}
                       // onPress={}
@@ -133,7 +133,7 @@ export const styles = StyleSheet.create({
     marginTop: 2,
   },
   modalView: {
-    margin: 20,
+    margin: 30,
     backgroundColor: "white",
     borderRadius: 20,
     paddingTop: 10,
@@ -161,20 +161,17 @@ export const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 18,
-    // fontWeight: "bold",
     textAlign: "center",
   },
   modalText: {
     fontSize: 26,
     marginBottom: 15,
-    // textAlign: "center",
-    // alignItems: "center"
   },
   skills: {
     display: "flex",
     alignItems: "center",
-    flexDirection: "row",
-    // justifyContent: "flex-start",
+    // flexDirection: "row",
+    justifyContent: "center",
     padding: 6,
     borderRadius: 20,
     marginVertical: 4,
@@ -186,7 +183,7 @@ export const styles = StyleSheet.create({
   },
   information:{
     flexDirection: "column",
-    // justifyContent:"space-around",
+    justifyContent:"center",
     alignItems: "center",
     marginLeft: 7
   },
@@ -194,7 +191,8 @@ export const styles = StyleSheet.create({
   add: {
     backgroundColor: "#B0C7DD",
     borderRadius: 20,
-    padding: 6
+    padding: 6,
+    // alignItems:"center"
   },
   addTextStyle: { 
     fontSize: 16 
