@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext, useState, useEffect, ChangeEvent } from "react";
+import { SaveContext } from "../context/SaveProvider"
 
 import {
   TouchableOpacity,
@@ -15,6 +17,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Api } from "../services/Api/api";
+import { storeData } from "../services/AsyncStorage/LocalStorageService";
 
 interface IData {
   skill: number;
@@ -24,6 +27,8 @@ interface IData {
   description: string;
   imageUrl: string;
   user: number;
+  knowledgeLevel: number;
+  createdAt: string;
 }
 
 export function AdicionarSkills() {
@@ -37,22 +42,71 @@ export function AdicionarSkills() {
 
   const [skills, setSkills] = useState<IData[]>([]);
   const [refresh, setRefresh] = useState(false);
+  const [id1, setId1] = useState("");
+  const { carregar, userSkills } = useContext(SaveContext)
+
+
+  useEffect(() => {
+    const _retrieveData = async () => {
+      try {
+        const value = await AsyncStorage.getItem("id");
+        if (value !== null) {
+          // We have data!!
+          const currentUser = JSON.parse(value);
+
+          setId1(currentUser);
+        }
+      } catch (error) {
+        // Error retrieving data
+      }
+    };
+    _retrieveData();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       try {
+        console.log("salve", userSkills);
+        userSkills.map(function (e: any) {
+          console.log("salve2", e.id);
+
+        })
+        console.log("salve2");
+
+
         const skillsResponse = await Api.get(`/api/skills`);
         const skillsApi = skillsResponse.data;
-        setSkills(skillsApi);
+        setSkills(skillsApi)
+        
       } catch (error) {
         console.log(error);
       }
     }
     fetchData();
-  });
+  }, []);
+  const adicionar = async (e: any) => {
+
+    const params = {
+      knowledgeLevel: 0,
+      createdAt: "2023-01-16",
+      user: Number(id1),
+      skill: e
+    }
+
+    try {
+      await Api.post(`/api/userSkills`, params);
+      Alert.alert('Sucesso', 'Skill adicionada com sucesso', [
+        { text: 'OK', onPress: () => carregar() },
+      ])
+    } catch (error) {
+      console.log('Erro ao adicionar skill', error);
+    }
+
+  }
+
 
   return (
-    <View style={styles.centeredView}>
+    <SafeAreaView style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -78,14 +132,14 @@ export function AdicionarSkills() {
                     }}
                     style={{ width: 50, height: 50, borderRadius: 20 }}
                   />
-
                   <View style={styles.information}>
                     <Text style={[styles.textModal, themeTextStyle]}>
                       {item.name}
                     </Text>
+
                     <Pressable
                       style={styles.add}
-                      // onPress={}
+                      onPress={() => adicionar(item.id)}
                     >
                       <Text style={[styles.addTextStyle, themeTextStyle]}>
                         Adicionar
@@ -111,7 +165,7 @@ export function AdicionarSkills() {
       >
         <Text style={[styles.textStyle, themeTextStyle]}>Adicionar Skills</Text>
       </Pressable>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -133,7 +187,7 @@ export const styles = StyleSheet.create({
     marginTop: 2,
   },
   modalView: {
-    margin: 30,
+    margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
     paddingTop: 10,
@@ -161,40 +215,44 @@ export const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 18,
+    // fontWeight: "bold",
     textAlign: "center",
   },
   modalText: {
     fontSize: 26,
     marginBottom: 15,
+    // textAlign: "center",
+    // alignItems: "center"
   },
   skills: {
     display: "flex",
     alignItems: "center",
-    // flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: "row",
+    // justifyContent: "flex-start",
     padding: 6,
     borderRadius: 20,
     marginVertical: 4,
-    // marginHorizontal: 60,
+    marginHorizontal: 30,
   },
   textModal: {
     fontSize: 20,
     paddingLeft: 10,
   },
-  information:{
+  information: {
     flexDirection: "column",
-    justifyContent:"center",
-    alignItems: "center",
-    marginLeft: 7
+    // justifyContent:"space-around",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    marginLeft: 15,
+
   },
 
   add: {
     backgroundColor: "#B0C7DD",
     borderRadius: 20,
-    padding: 6,
-    // alignItems:"center"
+    padding: 6
   },
-  addTextStyle: { 
-    fontSize: 16 
+  addTextStyle: {
+    fontSize: 16
   },
 });

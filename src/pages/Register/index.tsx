@@ -47,12 +47,12 @@ const Register = () => {
     if (password == validPass) {
       postUser(data)
         .then((res) => {
-          console.log(res.data);
           Alerta("Parabéns!", "você foi cadastrado com sucesso!");
           navigation.navigate("SignIn");
         })
         .catch((err) => {
           Alerta("Oops!", "Este nome já está em uso!");
+          console.log(err);
         });
     } else {
       Alerta("Oops!", "As senhas não coincidem");
@@ -90,6 +90,8 @@ const Register = () => {
               <TextInput
                 placeholder="Insira uma senha"
                 style={styles.input}
+                // value={input}
+                // onChangeText={(texto) => setInput(texto)}
                 secureTextEntry={hidePass}
                 accessibilityLabel="Input senha."
                 accessibilityHint="Insira sua melhor senha aqui."
@@ -122,11 +124,22 @@ const Register = () => {
                   setValidPass(value);
                 }}
               />
+              {/* <TouchableOpacity
+                style={styles.icon}
+                onPress={() => setHidePass(!hidePass)}
+              >
+                {hidePass ? (
+                  <Ionicons name="eye" color="#15151e" size={25} />
+                ) : (
+                  <Ionicons name="eye-off" color="#15151e" size={25} />
+                )}
+              </TouchableOpacity> */}
             </View>
           </View>
 
           <TouchableOpacity
             style={[styles.button, themeContainerStyle]}
+            // onPress={() => navigation.navigate("SignIn")}
             accessibilityLabel="Botão criar."
             accessibilityHint="Terminou de preencher todos os campos? Clique aqui para fazer login."
             onPress={() => {

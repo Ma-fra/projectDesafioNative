@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
+  TouchableOpacity,
   SafeAreaView,
   View,
   Text,
@@ -11,6 +12,8 @@ import {
 import { Api } from "../../services/Api/api";
 import { styles } from "./styles";
 import { AdicionarSkills } from "../../components/adicionarSkills";
+import { SaveContext } from "../../context/SaveProvider";
+//10156
 interface IData {
   skill: number;
   id: number;
@@ -19,16 +22,18 @@ interface IData {
   description: string;
   imageUrl: string;
   user: number;
+  atualizar: boolean
 }
 
 export function Home() {
   const colorScheme = useColorScheme();
   const [id1, setId1] = useState("");
   const [refresh, setRefresh] = useState(false);
-  const [skills, setSkills] = useState<IData[]>([]);
   const [skillsFilter, setSkillsFilter] = useState<IData[]>([]);
 
   const [infoSkills, setInfoSkills] = useState<IData[]>([]);
+  const {atualizar, addItem} = useContext(SaveContext)
+  var array1: any[] | ((prevState: IData[]) => IData[]) =  [];
 
   const themeTextStyle =
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
@@ -49,9 +54,12 @@ export function Home() {
         const value = await AsyncStorage.getItem("id");
         if (value !== null) {
           const currentUser = JSON.parse(value);
+
           setId1(currentUser);
         }
-      } catch (error) {}
+      } catch (error) {
+        
+      }
     };
     _retrieveData();
   }, []);
@@ -59,7 +67,11 @@ export function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
+        
+
         const contasResponse = await Api.get(`/api/userSkills`);
+        
+
         const contasApi = contasResponse.data;
         var array = contasApi;
 
@@ -68,60 +80,66 @@ export function Home() {
             return el.user === Number(id1);
           })
         );
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     fetchData();
-  }, [id1]);
+  }, [id1, atualizar]);
   useEffect(() => {
     async function fetchData1() {
       try {
-        console.log(skillsFilter.length);
-        if (skillsFilter.length > 0 && infoSkills.length > 0) {
-          infoSkills.pop();
-        }
+        
+        
         for (var i = 0; i < skillsFilter.length; i++) {
           const contasResponse = await Api.get(
             `/api/skills/` + skillsFilter[i].skill.toString()
           );
           const contasApi = contasResponse.data;
-          infoSkills.push(contasApi);
+          
+          array1.push(contasApi);
         }
         setRefresh(!refresh);
-      } catch (error) {}
+        setInfoSkills(array1)
+        addItem(infoSkills);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     fetchData1();
   }, [skillsFilter]);
 
   return (
-    <>
+    <>    
       <SafeAreaView style={[styles.container, themeContainerStyle]}>
-        <View style={styles.containerBotao}>
-          <AdicionarSkills />
+      <View style={styles.containerBotao}>
+        <AdicionarSkills />
         </View>
         <View style={styles.containerLista}>
-          <FlatList
-            data={infoSkills}
-            refreshing={refresh}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.skills}>
-                <Image
-                  source={{
-                    uri: item.imageUrl,
-                  }}
-                  style={{ width: 50, height: 50, borderRadius: 20 }}
-                />
-                <View style={styles.informations}>
-                  <Text style={styles.title}>{item.name}</Text>
-                  <Text style={styles.description}>{item.description}</Text>
-                  <Text style={styles.version}>{item.version}</Text>
-                </View>
+        <FlatList
+          data={infoSkills}
+          refreshing={refresh}
+          scrollEnabled={true}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.skills}>
+              <Image
+                source={{
+                  uri: item.imageUrl,
+                }}
+                style={{ width: 50, height: 50, borderRadius: 20 }}
+              />
+              <View style={styles.informations}>
+                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.description}>{item.description}</Text>
+                <Text style={styles.version}>{item.version}</Text>
               </View>
-            )}
-            ListEmptyComponent={EmptyListMessage}
-          />
+            </View>
+          )}
+          ListEmptyComponent={EmptyListMessage}
+        />
         </View>
       </SafeAreaView>
     </>

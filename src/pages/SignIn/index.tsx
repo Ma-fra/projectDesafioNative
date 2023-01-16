@@ -14,9 +14,9 @@ import { Api } from "../../services/Api/api";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
+import Checkbox from "expo-checkbox";
 import { storeData } from "../../services/AsyncStorage/LocalStorageService";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import Checkbox from "expo-checkbox";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IData {
   id: number;
@@ -51,7 +51,8 @@ export function SignIn() {
       }
     }
     fetchData();
-   }, []);
+    // readPassword();
+  }, []);
 
   const handleLogin = () => {
     if (usuario.length <= 0 || password.length <= 0) {
@@ -62,7 +63,7 @@ export function SignIn() {
     for (var i = 0; i < contas.length; i++) {
       if (contas[i].password == password && contas[i].login == usuario) {
         loginExiste = true;
-        storeData(contas[i].id.toString());storeData(contas[i].id.toString());
+        storeData(contas[i].id.toString(), "id");
         break;
       } else {
         continue;
@@ -129,6 +130,8 @@ export function SignIn() {
               style={styles.input}
               accessibilityLabel="Input senha."
               accessibilityHint="Insira a sua senha cadastrada."
+              // onChangeText={(value) => setPassword(value)}
+              // value={textInputValue}
               onChangeText={(data) => setPassword(data)}
             />
             <TouchableOpacity
@@ -143,7 +146,7 @@ export function SignIn() {
             </TouchableOpacity>
           </View>
 
-          {/* <View style={styles.checkboxContainer}>
+          <View style={styles.checkboxContainer}>
             <View style={styles.section}>
               <Checkbox
                 style={styles.checkbox}
@@ -156,7 +159,7 @@ export function SignIn() {
               />
               <Text style={styles.paragraph}>Lembrar senha</Text>
             </View>
-          </View> */}
+          </View>
 
           <TouchableOpacity
             style={[styles.button, themeContainerStyle]}
