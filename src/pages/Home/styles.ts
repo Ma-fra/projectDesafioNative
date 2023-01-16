@@ -64,17 +64,32 @@ export const styles = StyleSheet.create({
   modalText: {
     fontSize: 25,
     marginBottom: 15,
-    textAlign: 'center',
+    // textAlign: 'center',
   },
   skills: {
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
-    // justifyContent: "space-between",
-    backgroundColor: "#000",
+    justifyContent: "flex-start",
+    backgroundColor: "#38383f",
     padding: 20,
     borderRadius: 12,
-  }
+  },
+  title: {
+    color: "#fff",
+    fontSize: 26,
+
+  },
+  description: {
+    color: "#fff",
+    fontSize: 16,
+
+  },
+  version: {
+    color: "#fff",
+    fontSize: 12,
+
+  },
 });
 
 //   "#f1f1ef",

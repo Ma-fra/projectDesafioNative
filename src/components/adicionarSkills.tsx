@@ -30,6 +30,8 @@ export function AdicionarSkills() {
   const colorScheme = useColorScheme();
   const themeTextStyle =
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
+    const themeContainerStyle =
+    colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -56,7 +58,7 @@ export function AdicionarSkills() {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
+          Alert.alert("Lista fechada.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -69,17 +71,15 @@ export function AdicionarSkills() {
               refreshing={refresh}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
-                <View style={styles.skills}>
+                <View style={[styles.skills, themeContainerStyle]}>
                   <Image
                     source={{
                       uri: item.imageUrl,
                     }}
-                    style={{ width: 50, height: 50 }}
+                    style={{ width: 50, height: 50, borderRadius: 20, }}
                   />
 
-                  <Text style={{ color: "#fff" }}>{item.name}</Text>
-                  <Text style={{ color: "#fff" }}>{item.description}</Text>
-                  <Text style={{ color: "#fff" }}>{item.version}</Text>
+                  <Text style={[styles.textModal, themeTextStyle]}>  {item.name}</Text>
                 </View>
               )}
             />
@@ -88,7 +88,7 @@ export function AdicionarSkills() {
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={[styles.textStyle, themeTextStyle]}>X</Text>
+              <Text style={[styles.textStyle, themeTextStyle]}>Fechar</Text>
             </Pressable>
           </View>
         </View>
@@ -104,6 +104,12 @@ export function AdicionarSkills() {
 }
 
 export const styles = StyleSheet.create({
+  lightContainer: {
+    backgroundColor: "#f1f1ef",
+  },
+  darkContainer: {
+    backgroundColor: "#211f1f",
+  },
   lightThemeText: {
     color: "#2f414f",
   },
@@ -112,15 +118,14 @@ export const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     marginTop: 2,
   },
   modalView: {
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    paddingTop: 10,
+    paddingBottom: 90,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -143,22 +148,28 @@ export const styles = StyleSheet.create({
     backgroundColor: "#B0C7DD",
   },
   textStyle: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+    // fontWeight: "bold",
     textAlign: "center",
   },
   modalText: {
-    fontSize: 25,
+    fontSize: 26,
     marginBottom: 15,
-    textAlign: "center",
+    // textAlign: "center",
+    // alignItems: "center"
   },
   skills: {
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
-    // justifyContent: "space-between",
-    backgroundColor: "#000",
-    padding: 20,
-    borderRadius: 12,
+    justifyContent: "flex-start",
+    // backgroundColor: "#000",
+    padding: 6,
+    borderRadius: 20,
+    marginVertical: 4,
+    marginHorizontal: 30,
+  },
+  textModal: {
+    fontSize: 20,
   },
 });

@@ -107,9 +107,7 @@ export function Home() {
   return (
     <>
       <SafeAreaView style={[styles.container, themeContainerStyle]}>
-        {/* <View>
-          <Text style={[styles.text, themeTextStyle]}>Tela home</Text>
-        </View> */}
+  
         <AdicionarSkills />
 
         <FlatList
@@ -122,12 +120,12 @@ export function Home() {
                 source={{
                   uri: item.imageUrl,
                 }}
-                style={{ width: 50, height: 50 }}
+                style={{ width: 50, height: 50, borderRadius: 20, }}
               />
 
-              <Text style={{ color: "#fff" }}>{item.name}</Text>
-              <Text style={{ color: "#fff" }}>{item.description}</Text>
-              <Text style={{ color: "#fff" }}>{item.version}</Text>
+              <Text style={styles.title}>  {item.name}</Text>
+              <Text style={styles.description}>  {item.description}</Text>
+              <Text style={styles.version}>  {item.version}</Text>
             </View>
           )}
         />
