@@ -146,7 +146,7 @@ export function SignIn() {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.checkboxContainer}>
+          {/* <View style={styles.checkboxContainer}>
             <View style={styles.section}>
               <Checkbox
                 style={styles.checkbox}
@@ -159,7 +159,7 @@ export function SignIn() {
               />
               <Text style={styles.paragraph}>Lembrar senha</Text>
             </View>
-          </View>
+          </View> */}
 
           <TouchableOpacity
             style={[styles.button, themeContainerStyle]}
