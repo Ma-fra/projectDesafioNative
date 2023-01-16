@@ -66,6 +66,15 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  skills: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+    // justifyContent: "space-between",
+    backgroundColor: "#000",
+    padding: 20,
+    borderRadius: 12,
+  }
 });
 
 //   "#f1f1ef",

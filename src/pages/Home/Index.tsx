@@ -111,23 +111,13 @@ export function Home() {
           <Text style={[styles.text, themeTextStyle]}>Tela home</Text>
         </View> */}
         <AdicionarSkills />
-        
+
         <FlatList
           data={infoSkills}
           refreshing={refresh}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <View
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                backgroundColor: "#000",
-                padding: 20,
-                borderRadius: 12,
-              }}
-            >
+            <View style={styles.skills}>
               <Image
                 source={{
                   uri: item.imageUrl,

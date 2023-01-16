@@ -12,7 +12,19 @@ import {
   Modal,
   Pressable,
   StyleSheet,
+  ScrollView,
 } from "react-native";
+import { Api } from "../services/Api/api";
+
+interface IData {
+  skill: number;
+  id: number;
+  name: string;
+  version: string;
+  description: string;
+  imageUrl: string;
+  user: number;
+}
 
 export function AdicionarSkills() {
   const colorScheme = useColorScheme();
@@ -20,6 +32,22 @@ export function AdicionarSkills() {
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  const [skills, setSkills] = useState<IData[]>([]);
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const skillsResponse = await Api.get(`/api/skills`);
+        const skillsApi = skillsResponse.data;
+        setSkills(skillsApi);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  });
 
   return (
     <View style={styles.centeredView}>
@@ -35,6 +63,27 @@ export function AdicionarSkills() {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Skills</Text>
+
+            <FlatList
+              data={skills}
+              refreshing={refresh}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <View style={styles.skills}>
+                  <Image
+                    source={{
+                      uri: item.imageUrl,
+                    }}
+                    style={{ width: 50, height: 50 }}
+                  />
+
+                  <Text style={{ color: "#fff" }}>{item.name}</Text>
+                  <Text style={{ color: "#fff" }}>{item.description}</Text>
+                  <Text style={{ color: "#fff" }}>{item.version}</Text>
+                </View>
+              )}
+            />
+
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
@@ -102,5 +151,14 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 15,
     textAlign: "center",
+  },
+  skills: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+    // justifyContent: "space-between",
+    backgroundColor: "#000",
+    padding: 20,
+    borderRadius: 12,
   },
 });
