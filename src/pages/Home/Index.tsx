@@ -37,6 +37,14 @@ export function Home() {
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
+    const EmptyListMessage = () => {
+      return (
+        <Text style={[styles.emptyListStyle, themeTextStyle]}>
+          Você ainda não tem nenhuma skill!
+        </Text>
+      );
+    };
+
   useEffect(() => {
     const _retrieveData = async () => {
       try {
@@ -128,6 +136,7 @@ export function Home() {
               <Text style={styles.version}>  {item.version}</Text>
             </View>
           )}
+          ListEmptyComponent={EmptyListMessage}
         />
       </SafeAreaView>
     </>

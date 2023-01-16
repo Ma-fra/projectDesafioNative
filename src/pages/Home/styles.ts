@@ -90,6 +90,12 @@ export const styles = StyleSheet.create({
     fontSize: 12,
 
   },
+  emptyListStyle: {
+    padding: 10,
+    alignItems: 'center',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
 
 //   "#f1f1ef",
