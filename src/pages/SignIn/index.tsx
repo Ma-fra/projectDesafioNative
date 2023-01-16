@@ -14,9 +14,9 @@ import { Api } from "../../services/Api/api";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
-import Checkbox from "expo-checkbox";
 import { storeData } from "../../services/AsyncStorage/LocalStorageService";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+// import Checkbox from "expo-checkbox";
 
 interface IData {
   id: number;
@@ -51,8 +51,7 @@ export function SignIn() {
       }
     }
     fetchData();
-    // readPassword();
-  }, []);
+   }, []);
 
   const handleLogin = () => {
     if (usuario.length <= 0 || password.length <= 0) {
@@ -130,8 +129,6 @@ export function SignIn() {
               style={styles.input}
               accessibilityLabel="Input senha."
               accessibilityHint="Insira a sua senha cadastrada."
-              // onChangeText={(value) => setPassword(value)}
-              // value={textInputValue}
               onChangeText={(data) => setPassword(data)}
             />
             <TouchableOpacity

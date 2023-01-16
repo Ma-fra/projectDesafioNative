@@ -26,8 +26,6 @@ export const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     marginTop: 2,
   },
   modalView: {
@@ -64,7 +62,6 @@ export const styles = StyleSheet.create({
   modalText: {
     fontSize: 25,
     marginBottom: 15,
-    // textAlign: 'center',
   },
   skills: {
     display: "flex",

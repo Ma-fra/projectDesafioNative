@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  TouchableOpacity,
   SafeAreaView,
   View,
   Text,
@@ -12,7 +11,6 @@ import {
 import { Api } from "../../services/Api/api";
 import { styles } from "./styles";
 import { AdicionarSkills } from "../../components/adicionarSkills";
-//10156
 interface IData {
   skill: number;
   id: number;
@@ -50,14 +48,10 @@ export function Home() {
       try {
         const value = await AsyncStorage.getItem("id");
         if (value !== null) {
-          // We have data!!
           const currentUser = JSON.parse(value);
-
           setId1(currentUser);
         }
-      } catch (error) {
-        // Error retrieving data
-      }
+      } catch (error) {}
     };
     _retrieveData();
   }, []);
@@ -65,24 +59,16 @@ export function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log(id1);
-
         const contasResponse = await Api.get(`/api/userSkills`);
-        console.log("passou aqui");
-
         const contasApi = contasResponse.data;
         var array = contasApi;
 
         setSkillsFilter(
           array.filter(function (el: any) {
-            console.log("user", el.user);
-
             return el.user === Number(id1);
           })
         );
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
 
     fetchData();
@@ -99,14 +85,10 @@ export function Home() {
             `/api/skills/` + skillsFilter[i].skill.toString()
           );
           const contasApi = contasResponse.data;
-          console.log("foi?");
-
           infoSkills.push(contasApi);
         }
         setRefresh(!refresh);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
 
     fetchData1();

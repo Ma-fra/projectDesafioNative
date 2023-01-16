@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import * as Animatable from "react-native-animatable";
 import { TouchableOpacity, View, Text, useColorScheme } from "react-native";
-
-import { styles } from "./styles";
-
 import { useNavigation } from "@react-navigation/native";
+import { styles } from "./styles";
 
 export function Welcome() {
   const navigation = useNavigation();
