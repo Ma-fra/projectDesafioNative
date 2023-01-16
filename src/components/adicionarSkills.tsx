@@ -79,7 +79,7 @@ export function AdicionarSkills() {
                     style={{ width: 50, height: 50, borderRadius: 20, }}
                   />
 
-                  <Text style={[styles.textModal, themeTextStyle]}>  {item.name}</Text>
+                  <Text style={[styles.textModal, themeTextStyle]}>{item.name}</Text>
                 </View>
               )}
             />
@@ -171,5 +171,6 @@ export const styles = StyleSheet.create({
   },
   textModal: {
     fontSize: 20,
+    paddingLeft: 10,
   },
 });

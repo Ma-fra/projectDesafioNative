@@ -37,13 +37,13 @@ export function Home() {
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
-    const EmptyListMessage = () => {
-      return (
-        <Text style={[styles.emptyListStyle, themeTextStyle]}>
-          Você ainda não tem nenhuma skill!
-        </Text>
-      );
-    };
+  const EmptyListMessage = () => {
+    return (
+      <Text style={[styles.emptyListStyle, themeTextStyle]}>
+        Você ainda não tem nenhuma skill!
+      </Text>
+    );
+  };
 
   useEffect(() => {
     const _retrieveData = async () => {
@@ -115,7 +115,6 @@ export function Home() {
   return (
     <>
       <SafeAreaView style={[styles.container, themeContainerStyle]}>
-  
         <AdicionarSkills />
 
         <FlatList
@@ -128,12 +127,13 @@ export function Home() {
                 source={{
                   uri: item.imageUrl,
                 }}
-                style={{ width: 50, height: 50, borderRadius: 20, }}
+                style={{ width: 50, height: 50, borderRadius: 20 }}
               />
-
-              <Text style={styles.title}>  {item.name}</Text>
-              <Text style={styles.description}>  {item.description}</Text>
-              <Text style={styles.version}>  {item.version}</Text>
+              <View style={styles.informations}>
+                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.description}>{item.description}</Text>
+                <Text style={styles.version}>{item.version}</Text>
+              </View>
             </View>
           )}
           ListEmptyComponent={EmptyListMessage}

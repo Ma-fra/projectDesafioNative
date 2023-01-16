@@ -32,11 +32,11 @@ export const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -58,8 +58,8 @@ export const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
   },
   modalText: {
     fontSize: 25,
@@ -78,23 +78,25 @@ export const styles = StyleSheet.create({
   title: {
     color: "#fff",
     fontSize: 26,
-
   },
   description: {
     color: "#fff",
     fontSize: 16,
-
   },
   version: {
     color: "#fff",
     fontSize: 12,
-
+    marginLeft: 3,
   },
   emptyListStyle: {
     padding: 10,
-    alignItems: 'center',
     fontSize: 16,
-    textAlign: 'center',
+    alignItems: "center",
+    textAlign: "center",
+  },
+  informations: {
+    flexDirection: "column",
+    marginLeft: 12,
   },
 });
 
