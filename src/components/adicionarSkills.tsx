@@ -30,7 +30,7 @@ export function AdicionarSkills() {
   const colorScheme = useColorScheme();
   const themeTextStyle =
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
-    const themeContainerStyle =
+  const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -76,10 +76,22 @@ export function AdicionarSkills() {
                     source={{
                       uri: item.imageUrl,
                     }}
-                    style={{ width: 50, height: 50, borderRadius: 20, }}
+                    style={{ width: 50, height: 50, borderRadius: 20 }}
                   />
+                  <View style={styles.information}>
+                    <Text style={[styles.textModal, themeTextStyle]}>
+                      {item.name}
+                    </Text>
 
-                  <Text style={[styles.textModal, themeTextStyle]}>{item.name}</Text>
+                    <Pressable
+                      style={styles.add}
+                      // onPress={}
+                    >
+                      <Text style={[styles.addTextStyle, themeTextStyle]}>
+                        Adicionar
+                      </Text>
+                    </Pressable>
+                  </View>
                 </View>
               )}
             />
@@ -162,8 +174,7 @@ export const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
-    justifyContent: "flex-start",
-    // backgroundColor: "#000",
+    // justifyContent: "flex-start",
     padding: 6,
     borderRadius: 20,
     marginVertical: 4,
@@ -172,5 +183,20 @@ export const styles = StyleSheet.create({
   textModal: {
     fontSize: 20,
     paddingLeft: 10,
+  },
+  information:{
+    flexDirection: "column",
+    // justifyContent:"space-around",
+    alignItems: "center",
+    marginLeft: 7
+  },
+
+  add: {
+    backgroundColor: "#B0C7DD",
+    borderRadius: 20,
+    padding: 6
+  },
+  addTextStyle: { 
+    fontSize: 16 
   },
 });
